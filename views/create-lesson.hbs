@@ -1,0 +1,30 @@
+<div class="container-course-create-form">
+    <form action="http://127.0.0.1:3000/lessons" method="post" enctype="multipart/form-data">
+        <div class="field" tabindex="1">
+            <label for="title">
+                Заголовок занятия
+            </label>
+            <input name="title" id="title" type="text" placeholder="Название занятия" class="text" required/>
+        </div>
+        <div class="field" tabindex="2">
+            <label for="description">
+                Описание занятия
+            </label>
+            <textarea name="description" id="description" placeholder="Краткое описание" class="text" required></textarea>
+        </div>
+        <div class="field" tabindex="3">
+            <label for="video">
+                Добавить видео
+            </label>
+            <input type="file" name="picture" id="picture" class="text" required/>
+            <input name="authorId" id="authorId" value="{{authorId}}" hidden/>
+            <input name="courseId" id="courseId" value="{{courseId}}" hidden/>
+        </div>
+        <button type="submit" class="course-create-btn">Создать</button>
+
+    </form>
+</div>
+
+
+
+

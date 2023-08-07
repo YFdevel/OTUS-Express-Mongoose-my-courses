@@ -1,0 +1,46 @@
+<div class="container-course-create-form">
+    <form>
+        <div class="field" tabindex="1">
+            <label for="title">
+                Название курса
+            </label>
+            <input name="title" id="title" type="text" placeholder="Название курса" class="text" required/>
+        </div>
+        <div class="field" tabindex="2">
+            <label for="description">
+                Описание курса
+            </label>
+            <textarea name="description" id="description" placeholder="Краткое описание" class="text"
+                      required></textarea>
+            <input name="authorId" id="authorId" value="{{authorId}}" hidden/>
+            <input name="author" id="author" value="{{author}}" hidden/>
+        </div>
+        <button type="submit" class="course-create-btn" onclick="create()">Создать</button>
+
+    </form>
+</div>
+
+<script>
+
+    async function create() {
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const authorId = document.getElementById('authorId').value;
+        const author = document.getElementById('author').value;
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        formData.append('authorId', authorId);
+        formData.append('author', author);
+
+        const response = await fetch('http://127.0.0.1:3000/courses',
+                {
+                    method: 'POST',
+                    body: formData
+                });
+
+
+    }
+</script>
+

@@ -1,0 +1,52 @@
+<!-- Banner -->
+{{> banner}}
+
+<!-- One -->
+<section id="one" class="wrapper">
+    <div class="inner split">
+        <section>
+            <h2>Немного о нас</h2>
+            <p>Сообщество разработчиков, количество которых постоянно растет. Мы делимся своими знаниями и опытом совершенно бесплатно</p>
+            <ul class="actions">
+                <li><a href="#" class="button alt">Узнать подробнее</a></li>
+            </ul>
+        </section>
+        <section>
+            <ul class="checklist">
+                <li>Различные технологии и языки программирования</li>
+                <li>Комьюнити IT-специалистов различного уровня</li>
+                <li>Авторские методики</li>
+                <li>Возможность создавать свои курсы</li>
+                <li>Компании-партнеры</li>
+            </ul>
+        </section>
+    </div>
+</section>
+
+<!-- Two -->
+<section id="two" class="wrapper style2 alt">
+    <div class="inner">
+        {{#each courses}}
+            <div class="spotlight">
+                <div class="image">
+                    <img src="/assets/css/images/course.jpg" alt="" />
+                </div>
+                <div class="content">
+                    <h3>{{title}}</h3>
+                    <span class="course-desc">Author: {{author}}</span>
+                    <p>{{description}}</p>
+
+                    <ul class="actions">
+                        <li><a href="http://127.0.0.1:3000/courses/{{_id}}" class="button alt">Подробнее</a></li>
+                    </ul>
+                </div>
+            </div>
+        {{/each}}
+        <ul class="actions special">
+            <li><a href="http://127.0.0.1:3000/courses/" class="button alt">Смотреть все курсы</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Contact -->
+{{> contacts}}

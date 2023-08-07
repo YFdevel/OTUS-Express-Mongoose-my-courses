@@ -1,0 +1,28 @@
+<h1 class="section-title">Курсы</h1>
+<section id="two" class="wrapper style2 alt">
+    {{#if courses.length}}
+    <div class="inner">
+        {{#each courses}}
+        <div class="spotlight">
+            <div class="image">
+                <img src="/assets/css/images/course.jpg" alt="" />
+            </div>
+            <div class="content">
+                <h3>{{title}}</h3>
+                <span class="course-desc">Author: {{author}}</span>
+                <p>{{description}}</p>
+
+                <ul class="actions">
+                    <li><a href="http://127.0.0.1:3000/courses/{{_id}}" class="button alt">Подробнее</a></li>
+                </ul>
+            </div>
+        </div>
+        {{/each}}
+        <ul class="actions special">
+            <li><a href="#" class="button alt">Смотреть все курсы</a></li>
+        </ul>
+    </div>
+    {{else}}
+        <p>Список доступных курсов пуст</p>
+    {{/if}}
+</section>

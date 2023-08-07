@@ -1,0 +1,106 @@
+<div class="form-structor">
+    <div class="signup">
+        <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+        <form class="form-holder form-registration">
+            <input type="text" class="input"  id="firstNameReg" placeholder="Name" pattern="[A-Za-zА-Яа-я]{2,26}" name="firstName" required/>
+            <input type="text" class="input" name="lastName" id="lastNameReg" placeholder="Lastname" pattern="[A-Za-zА-Яа-я]{2,26}" required/>
+            <input type="email" class="input" name="email" id="emailReg" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+            <input type="password" class="input" name="password" id="passwordReg" placeholder="Password" pattern="[A-Za-z0-9_/\-$%]{8,12}" required/>
+        </form>
+        <button  type="submit" class="submit-btn" id="registr-btn"  onclick="register()">Sign up</button>
+    </div>
+    <div class="login slide-up">
+        <div class="center">
+            <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+            <form class="form-holder form-auth">
+                <input type="email" name="email" id="emailAuth" class="input" placeholder="Email" />
+                <input type="password" name="password" id="passwordAuth" class="input" placeholder="Password" />
+            </form>
+            <button  type="submit" class="submit-btn" id="auth-btn"  onclick="auth()">Log in</button>
+        </div>
+    </div>
+</div>
+<div id="message-error"></div>
+<script>
+    const messageError=document.getElementById('message-error');
+    function showError(message){
+        messageError.innerText=message;
+        messageError.classList.add('active');
+        setTimeout(()=>{
+            messageError.classList.remove('active');
+        },2000)
+    }
+    async function register(){
+        const firstNameReg = document.getElementById('firstNameReg').value;
+        const lastNameReg = document.getElementById('lastNameReg').value;
+        const emailReg = document.getElementById('emailReg').value;
+        const passwordReg = document.getElementById('passwordReg').value;
+
+        if(!(/[A-Za-zА-Яа-я]{2,26}/.test(firstNameReg))){
+            showError("Поля имя должно содержать 2-26 букв");
+            return
+        }
+
+        if(!(/[A-Za-zА-Яа-я]{2,26}/.test(lastNameReg))){
+            showError("Поля фамилия должно содержать 2-26 букв");
+            return
+        }
+
+        if(!(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(emailReg))){
+            showError("Введите корректный email");
+            return
+        }
+
+        if(!(/[A-Za-z0-9_/\-$%]{8,12}/.test(passwordReg))){
+            showError("Поле пароль должно содержать латинские буквы, цифры, /\\-_%$ (8-12 символов)");
+            return
+        }
+
+        const formData = new FormData();
+        formData.append('firstNameReg', firstNameReg);
+        formData.append('lastNameReg', lastNameReg);
+        formData.append('emailReg', emailReg);
+        formData.append('passwordReg', passwordReg);
+
+        const response=await fetch('http://127.0.0.1:3000/users', {
+            method: 'POST',
+            body: formData
+        });
+        if(response.status===201){
+            document.location.href="http://127.0.0.1:3000/users/success";
+        }else if(response.status===400){
+            document.location.href="http://127.0.0.1:3000/users/fail";
+        }
+    }
+
+    async function auth(){
+        const emailAuth = document.getElementById('emailAuth').value;
+        const passwordAuth = document.getElementById('passwordAuth').value;
+
+        if(!(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(emailAuth))){
+            showError("Введите корректный email");
+            return
+        }
+
+        if(!(/[A-Za-z0-9_/\-$%]{8,12}/.test(passwordAuth))){
+            showError("Поле пароль должно содержать латинские буквы, цифры, /\\-_%$ (8-12 символов)");
+            return
+        }
+        const formData = new FormData();
+        formData.append('emailAuth', emailAuth);
+        formData.append('passwordAuth', passwordAuth);
+
+        const response= await fetch('http://127.0.0.1:3000/users/login', {
+            method: 'POST',
+            body: formData
+        });
+
+        if(response.status===200){
+            document.location.href="http://127.0.0.1:3000/users/success";
+        }else if(response.status===400){
+            document.location.href="http://127.0.0.1:3000/users/fail";
+        }
+    }
+</script>
+
+
