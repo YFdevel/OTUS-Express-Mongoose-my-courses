@@ -1,5 +1,7 @@
 <div id="main-container">
+
     <section id="main-body-container">
+
         {{#if lessons.length}}
             <article id="main-article">
                 <section style="text-align: center;width:100%;">
@@ -11,13 +13,12 @@
                 <section>
                     <p id="main-desc"></p>
                 </section>
+
                 <button class="show-comments" id="show-comments-btn" onclick="hideComments(this)">
                     <span>Посмотреть комментарии</span>
                     <img src="/assets/css/images/downarrow.png"/>
                 </button>
-                <div class="comments-container-main hidden" id="comments-container-main">
-                </div>
-
+                <div class="comments-container-main hidden" id="comments-container-main"></div>
             </article>
 
         <aside id='sidebar'>
@@ -29,8 +30,10 @@
                                 class="iframe-aside"></iframe>
                     </section>
                     <h3 class="slider-article-title">{{title}}</h3>
+
                     <div class="hidden">
                         <p class="slider-article-desc">{{description}}</p>
+
                     <div class="comments-container">
                         <h4>Комментарии</h4>
                     <div class="comments-list">
@@ -41,35 +44,33 @@
                                     <p class="comment-message">{{this.message}}</p>
                                     <span class="comment-date">{{this.date}}</span>
                                 </div>
-
-                            </div>
-
-                            </div>
-
                             {{/each}}
                         {{else}}
                             <p>Комментариев нет</p>
                         {{/if}}
-                        <form class="module" action="http://127.0.0.1:3000/lessons/create-comment/{{_id}}" method="post"
+                    </div>
+                        <form class="module" action="http://127.0.0.1:3000/lessons/create-comment/{{_id}}?authorId={{authorId}}&courseId={{courseId}}" method="post"
                               enctype="multipart/form-data">
                             <h5 class="comments-title">Добавить комментарий</h5>
                             <textarea class="comments-textarea" name="message" id="message"> </textarea>
                             <input type="submit" class="comments-btn" id="comments-btn" value="Отправить"/>
                         </form>
                     </div>
+                    </div>
                 </article>
             {{/each}}
         {{else}}
             <p>Список доступных занятий пуст</p>
         {{/if}}
-    </aside>
+       </aside>
+
         {{#if authorId}}
-            <a href="/lessons/create?courseId={{courseId}}" class="add-lesson">Добавить урок</a>
+            <a href="/lessons/create/{{courseId}}" class="add-lesson">Добавить урок</a>
         {{else}}
             <p></p>
         {{/if}}
-    </section>
 
+    </section>
 
 </div>
 

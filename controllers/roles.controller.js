@@ -1,62 +1,38 @@
 import express from "express";
-import {RolesService} from "../services/roles.service.js";
+import {create,getAll,findById,updateRole,deleteRole} from "../services/roles.service.js";
+import {tryCatch} from "../utils/tryCatch.js";
 
 const rolesRouter = express.Router();
-rolesRouter.post("/", async (req, res) => {
-    console.log(req.body)
-    try {
-        const answerFromService = await RolesService.create(req.body);
+rolesRouter.post("/", tryCatch(async (req, res) => {
+        const answerFromService = await create(req.body);
             res.status(201).json(answerFromService);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+}));
 
 
-rolesRouter.get("/", async (req, res) => {
-    try {
-        const data = await RolesService.getAll();
+rolesRouter.get("/", tryCatch(async (req, res) => {
+        const data = await getAll();
         await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+}));
 
-rolesRouter.get("/:id", async (req, res) => {
-    try {
+rolesRouter.get("/:id", tryCatch(async (req, res) => {
         const {id}=req.params;
-        if(!id){
-            res.status(400).json({message:"Не указан id"});
-        }
-        const data = await RolesService.findById(id);
+        const data = await findById(id);
         await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-rolesRouter.patch("/", async (req, res) => {
-    try {
+}));
+
+rolesRouter.patch("/", tryCatch(async (req, res) => {
         const role=req.body;
         if(!role._id){
             res.status(400).json({message:"Не указан id"});
         }
-        const data = await RolesService.updateRole(role);
+        const data = await updateRole(role);
         await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-rolesRouter.delete("/:id", async (req, res) => {
-    try {
+}));
+
+rolesRouter.delete("/:id", tryCatch(async (req, res) => {
         const {id}=req.params;
-        if(!id){
-            res.status(400).json({message:"Не указан id"});
-        }
-        const data = await RolesService.deleteRole(id);
+        const data = await deleteRole(id);
         await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+}));
 
 export default rolesRouter;

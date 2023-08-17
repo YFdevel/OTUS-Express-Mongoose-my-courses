@@ -1,1 +1,0 @@
-export const secret='secret_key_my_courses';

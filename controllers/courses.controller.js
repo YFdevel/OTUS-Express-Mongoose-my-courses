@@ -1,68 +1,40 @@
 import express from "express";
-import {CourseService} from "../services/courses.service.js";
-
+import {create, getAll, findById, updateCourse, deleteCourse} from "../services/courses.service.js";
+import {tryCatch} from "../utils/tryCatch.js";
 
 const coursesRouter = express.Router();
-coursesRouter.post("/", async (req, res) => {
-    try {
-        const data = await CourseService.create(req.body);
-        res.status(201).json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
 
-coursesRouter.get("/", async (req, res) => {
-    try {
-        const courses = Array.from(await CourseService.getAll());
-        res.render('courses', {
-            isCourses: true,
-            courses
-        })
+coursesRouter.post("/", tryCatch(async (req, res) => {
+    const data = await create(req.body);
+    res.status(201).json({data});
+}));
 
-    } catch (err) {
-        res.status(500).json(err);
+coursesRouter.get("", tryCatch(async (req, res) => {
+    const courses = await getAll();
+    res.render('courses', {
+        isCourses: true,
+        courses
+    })
+}));
+coursesRouter.get("/:id", tryCatch(async (req, res) => {
+    const {id} = req.params;
+    const course = await findById(id);
+    res.render('course-detail', {
+        course
+    })
+}));
+coursesRouter.patch("/", tryCatch(async (req, res) => {
+    const course = req.body;
+    if (!course._id) {
+        res.status(400).json({message: "Не указан id"});
     }
-});
-coursesRouter.get("/:id", async (req, res) => {
-    try {
-        const {id} = req.params;
-        if (!id) {
-            res.status(400).json({message: "Не указан id"});
-        }
-        const course = await CourseService.findById(id);
-        console.log(course)
-        // await res.json(data);
-        res.render('course-detail', {
-            course
-        })
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-coursesRouter.patch("/", async (req, res) => {
-    try {
-        const course = req.body;
-        if (!course._id) {
-            res.status(400).json({message: "Не указан id"});
-        }
-        const data = await CourseService.updateCourse(course);
-        await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-coursesRouter.delete("/:id", async (req, res) => {
-    try {
-        const {id} = req.params;
-        if (!id) {
-            res.status(400).json({message: "Не указан id"});
-        }
-        const data = await CourseService.deleteCourse(id);
-        await res.json(data);
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
+    const data = await updateCourse(course);
+    await res.json(data);
+}));
+coursesRouter.delete("/:id", tryCatch(async (req, res) => {
+    const {id} = req.params;
+    const data = await deleteCourse(id);
+    await res.json(data);
+}));
 
 export default coursesRouter;
