@@ -1,0 +1,116 @@
+<div id="main-container">
+
+    <section id="main-body-container">
+
+        {{#if lessons.length}}
+            <article id="main-article">
+                <section style="text-align: center;width:100%;">
+                    <iframe frameborder="0" style="min-width:99%;min-height:400px;"
+                            src="#" id="main-iframe">
+                    </iframe>
+                </section>
+                <h2 id="main-title"></h2>
+                <section>
+                    <p id="main-desc"></p>
+                </section>
+
+                <button class="show-comments" id="show-comments-btn" onclick="hideComments(this)">
+                    <span>Посмотреть комментарии</span>
+                    <img src="/assets/css/images/downarrow.png"/>
+                </button>
+                <div class="comments-container-main hidden" id="comments-container-main"></div>
+            </article>
+
+        <aside id='sidebar'>
+            {{#each lessons}}
+                <article class="slider-article" onclick="makeLessonMain(this)">
+                    <section>
+                        <iframe style="min-width:20%;min-height:40px;" frameborder="0"
+                                src="http://localhost:3000/assets/videos/{{videoUrl}}" style=""
+                                class="iframe-aside"></iframe>
+                    </section>
+                    <h3 class="slider-article-title">{{title}}</h3>
+
+                    <div class="hidden">
+                        <p class="slider-article-desc">{{description}}</p>
+
+                    <div class="comments-container">
+                        <h4>Комментарии</h4>
+                    <div class="comments-list">
+                        {{#if comments}}
+                            {{#each comments}}
+                                <div class="comment-content">
+                                    <span class="comment-author">{{this.authorCommentName}}</span>
+                                    <p class="comment-message">{{this.message}}</p>
+                                    <span class="comment-date">{{this.date}}</span>
+                                </div>
+                            {{/each}}
+                        {{else}}
+                            <p>Комментариев нет</p>
+                        {{/if}}
+                    </div>
+                        <form class="module" action="http://127.0.0.1:3000/lessons/create-comment/{{_id}}?authorId={{authorId}}&courseId={{courseId}}" method="post"
+                              enctype="multipart/form-data">
+                            <h5 class="comments-title">Добавить комментарий</h5>
+                            <textarea class="comments-textarea" name="message" id="message"> </textarea>
+                            <input type="submit" class="comments-btn" id="comments-btn" value="Отправить"/>
+                        </form>
+                    </div>
+                    </div>
+                </article>
+            {{/each}}
+        {{else}}
+            <p>Список доступных занятий пуст</p>
+        {{/if}}
+       </aside>
+
+        {{#if authorId}}
+            <a href="/lessons/create/{{courseId}}" class="add-lesson">Добавить урок</a>
+        {{else}}
+            <p></p>
+        {{/if}}
+
+    </section>
+
+</div>
+
+<script>
+    const mainTitle = document.getElementById('main-title');
+    const mainDesc = document.getElementById('main-desc');
+    const mainIframe = document.getElementById('main-iframe');
+    const commentsContainerMain = document.getElementById('comments-container-main');
+    const showCommentsBtn = document.getElementById('show-comments-btn');
+
+
+    (function () {
+        mainIframe.setAttribute('src', document.getElementsByClassName('iframe-aside')[0].getAttribute("src"));
+        mainTitle.innerText = document.getElementsByClassName('slider-article-title')[0].innerText;
+        mainDesc.innerText = document.getElementsByClassName('slider-article-desc')[0].innerText;
+        commentsContainerMain.innerHTML = document.getElementsByClassName('comments-container')[0].innerHTML;
+    }());
+
+    function makeLessonMain(element) {
+        mainIframe.setAttribute('src', element.getElementsByClassName('iframe-aside')[0].getAttribute("src"));
+        mainTitle.innerText = element.getElementsByClassName('slider-article-title')[0].innerText;
+        mainDesc.innerText = element.getElementsByClassName('slider-article-desc')[0].innerText;
+        commentsContainerMain.innerHTML = element.getElementsByClassName('comments-container')[0].innerHTML;
+
+    }
+
+    function hideComments(element) {
+        const commentsBlock = element.nextElementSibling;
+        commentsBlock.classList.toggle("hidden");
+        if (commentsBlock.classList.contains("hidden")) {
+            element.getElementsByTagName("span")[0].innerText = "Посмотреть комментарии";
+            element.getElementsByTagName("img")[0].src = "/assets/css/images/downarrow.png";
+        } else {
+            element.getElementsByTagName("span")[0].innerText = "Скрыть комментарии";
+            element.getElementsByTagName("img")[0].src = "/assets/css/images/arrow_up.png";
+        }
+
+    }
+
+</script>
+
+
+

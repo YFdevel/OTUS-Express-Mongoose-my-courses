@@ -1,0 +1,35 @@
+<ul class="menu cf">
+    {{#if isMain}}
+    <li class="nav-link_active"><a href="/" >Главная</a></li>
+    {{else}}
+        <li><a href="/">Главная</a></li>
+    {{/if}}
+
+    {{#if isAuthor}}
+    <li class="nav-link_active">
+        <a href="#">Для авторов</a>
+        <ul class="submenu">
+            <li><a href="#"></a></li>
+            <li><a href="/authors">Создать свой курс</a></li>
+        </ul>
+    </li>
+    {{else}}
+        <li>
+            <a href="#">Для авторов</a>
+            <ul class="submenu">
+                <li><a href="#"></a></li>
+                <li><a href="/authors">Создать свой курс</a></li>
+            </ul>
+        </li>
+        {{/if}}
+            {{#if isCourses}}
+    <li class="nav-link_active"><a href="/courses">Курсы</a></li>
+            {{else}}
+                <li><a href="/courses">Курсы</a></li>
+            {{/if}}
+            {{#if isAuth}}
+    <li class="nav-link_active"><a href="/users">Вход / Регистрация</a></li>
+            {{else}}
+                <li><a href="/users">Вход / Регистрация</a></li>
+            {{/if}}
+</ul>

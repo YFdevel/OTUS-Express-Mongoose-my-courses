@@ -1,0 +1,87 @@
+<div id="main-container">
+    <section id="main-body-container">
+
+        <article id="main-article">
+            <section style="text-align: center;width:100%;">
+                <iframe frameborder="0" style="min-width:99%;min-height:400px;"
+                        src="https://www.youtube.com/embed/94DqCs8qtlI" id="main-iframe">
+
+                </iframe>
+            </section>
+            <h2 id="main-title"> Social Networking Project </h2>
+            <section>
+                <p id="main-desc">
+                    I have created Small Project based on Social networking site. You can check out the demo at
+                    www.wayplus.url.ph . Also you can share your Thoughts on this.
+                    This PHP project is an example of functionality of dynamic pages using php source code.Throughout
+                    this
+                    project JavaScript is used for validations be it simple one or complex.Facebook is a software for
+                    social
+                    networking media.
+                    Its a platform for sharing owr day-to-day life and thoughts by using electronic media.A totally new
+                    concept that is way ahead from the simple mail exchange andIM’s facilitated by Yahoomail and other
+                    mail
+                    servers. Now a days it’s widely used for sharingsome memorable movements of our life as-well-as
+                    bussiness growth by photo shairing.
+                    The main types of social networking services contain category places(such as former school-year or
+                    classmates), means to connect with friends (usually with self-description pages), and a
+                    recommendation
+                    system linked to trust. One can categorize social-network services into three types:
+                    socializing social network services used primarily for socializing with existing friends (e.g.,
+                    Facebook)
+                    networking social network services used primarily for non-social interpersonal communication (e.g.,
+                    LinkedIn, a career- and employment-oriented site)
+                    social navigation social network services used primarily for helping users to find specific
+                    information
+                    or resources (e.g., Goodreads for books)
+                </p>
+            </section>
+            <a href="/lessons/create" class="add-lesson">Добавить урок</a>
+        </article>
+
+        <aside id='sidebar'>
+            <article class="slider-article" onclick="makeLessonMain(this)">
+                <section>
+                    <iframe style="min-width:20%;min-height:40px;" frameborder="0"
+                            src="https://www.youtube.com/embed/PsaRb8ga3Y0" style="" class="iframe-aside"></iframe>
+                </section>
+                <h3 class="slider-article-title"> Submit Checkbox values in Form with JQuery/PHP </h3>
+            </article>
+
+            <article class="slider-article">
+                <section>
+                    <iframe style="min-width:20%;min-height:40px;" frameborder="0"
+                            src="https://www.youtube.com/embed/94DqCs8qtlI" style=""></iframe>
+                </section>
+                <h3 class="slider-article-title"> Social Networking Project in PHP </h3>
+            </article>
+
+            <article class="slider-article">
+                <section>
+                    <iframe style="min-width:20%;min-height:40px;" frameborder="0"
+                            src="https://www.youtube.com/embed/qZXdPNW477o" style=""></iframe>
+                </section>
+                <h3 class="slider-article-title"> Using Google reCAPTCHA with PHP - Are you a Robot? </h3>
+            </article>
+
+        </aside>
+
+    </section>
+
+
+</div>
+
+<script>
+
+    function makeLessonMain(element) {
+        const mainTitle = document.getElementById('main-title');
+        const mainDesc = document.getElementById('main-desc');
+        const mainIframe = document.getElementById('main-iframe');
+                console.log(element)
+                mainIframe.setAttribute('src',element.getElementsByClassName('iframe-aside')[0].getAttribute("src"))
+                mainTitle.innerText=element.getElementsByClassName('slider-article-title')[0].innerText
+
+    }
+
+</script>
+

@@ -1,0 +1,22 @@
+{{#if course}}
+<h1 class="section-title">{{course.title}}</h1>
+<section id="two" class="wrapper style2 alt">
+        <div class="inner">
+                <div class="spotlight">
+                    <div class="image">
+                        <img src="/assets/css/images/course.jpg" alt="" />
+                    </div>
+                    <div class="content">
+                        <span class="course-desc">Author: {{course.author}}</span>
+                        <p>{{course.description}}</p>
+
+                    </div>
+                </div>
+            <ul class="actions special">
+                <li><a href="/lessons/by-course/{{course._id}}/{{course.authorId}}" class="button alt">Смотреть все занятия</a></li>
+            </ul>
+        </div>
+    {{else}}
+        <p>Информация о курсе отсутствует</p>
+    {{/if}}
+</section>
